@@ -4,7 +4,7 @@ const getCovidInfo = async() => {
     const url = `https://api.covid19api.com/summary`;
     const res = await fetch(url);
     const data = await res.json();
-    // console.log(data);
+     console.log(data);
     displayCovidData(data);
 }
 getCovidInfo();
@@ -50,12 +50,38 @@ const displayCovidData = async(data) => {
             countryDiv.classList.add(...classes);
             countryDiv.innerHTML = `
             <div class="card">
-                        <div class="card-body">
-                          <h6 class="card-title">${country.Country}</h6>
-                          <p class="card-text m-0"> New Case: ${global.NewConfirmed}</p>
-                          <p class="card-text m-0"> New Death: ${global.NewDeaths}</p>
+                <div class="card-body">
+                    <h5 class="card-title">${country.Country}</h5>
+                    <p class="card-text m-0 fw-bold"> Total Case: ${country.TotalConfirmed}</p>
+                    <p class="card-text m-0 fw-bold"> Total Death: ${country.TotalDeaths}</p>
+                    
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary btn-sm mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    More Details
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal  fade" id="exampleModal" tabindex="-1"        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="exampleModalLabel">Name: ${country.Country}</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="card-text m-0 fw-bold"> New Case: ${country.NewConfirmed}</p>
+                                    <p class="card-text m-0 fw-bold"> New Death: ${country.NewDeaths}</p>
+                                    <p class="card-text m-0 fw-bold"> Total Case: ${country.TotalConfirmed}</p>
+                                    <p class="card-text m-0 fw-bold"> Total Death: ${country.TotalDeaths}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
                         </div>
-                      </div>
+                    </div>
+                </div>
+            </div>
             `;
             countryContainer.appendChild(countryDiv);
         };
@@ -64,9 +90,13 @@ const displayCovidData = async(data) => {
     }
 }
 
+// COUNTRY SELECT EVENT HANDLER
+
+
+
 /**
  * country select event handler
- 
+ */
  $('#country-selector').on('select2:select', async(event) => {
     const url = 'https://api.covid19api.com/summary';
     try {
@@ -86,14 +116,15 @@ const displayCovidData = async(data) => {
                 }
             }
             countrySingleDiv.innerHTML = `
-            <div class="box2">
-                <div class="box2-content">
-                    <h4 class="sing-item title"><strong>Country: </strong> ${selectedCountry[0].Country}</h4>
-                    <p class="sing-item"><strong>মোট আক্রান্তঃ ${selectedCountry[0].TotalConfirmed}</strong>
-                    </p>
-                    <p class="sing-item"><strong>মোট মৃতঃ ${selectedCountry[0].TotalDeaths}</strong></p>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">${selectedCountry[0].Country}</h5>
+                        <p class="card-text m-0"> New Case: ${selectedCountry[0].NewConfirmed}</p>
+                        <p class="card-text m-0"> New Death: ${selectedCountry[0].NewDeaths}</p>
+                        <p class="card-text m-0"> Total Case: ${selectedCountry[0].TotalConfirmed}</p>
+                        <p class="card-text m-0"> Total Death: ${selectedCountry[0].TotalDeaths}</p>
+                    </div>
                 </div>
-            </div>
         `;
             countryContainer.appendChild(countrySingleDiv);
         } else {
@@ -105,4 +136,7 @@ const displayCovidData = async(data) => {
         console.log(err);
     }
 });
-*/
+
+
+                    // <p class="card-text m-0"> New Case: ${country.NewConfirmed}</p>
+                    // <p class="card-text m-0"> New Death: ${country.NewDeaths}</p>

@@ -1,0 +1,25 @@
+.select2-container--default {
+    width: 100% !important;
+}
+
+.select2-selection__rendered {
+    text-align: left !important;
+    line-height: 42px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 8px;
+}
+
+.select2-container--default .select2-selection--single {
+    height: 42px;
+}
+
+.select2-selection__clear span {
+    margin-top: 8px;
+    display: block;
+}
+
+.country-selction {
+    padding-bottom: 30px;
+}
